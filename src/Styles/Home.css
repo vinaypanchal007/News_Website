@@ -1,0 +1,69 @@
+.home {
+  width: 100%;
+  height: 595px;
+  background-color: rgb(99, 98, 98);
+}
+
+.home .intro {
+  width: 100%;
+  height: 20rem;
+}
+
+.home .intro .logo {
+  margin-left: 570px;
+  font-size: 50px;
+  color: orangered;
+}
+
+.home .intro .brief {
+  color: orange;
+  font-size: 20px;
+  padding: 40px;
+  margin-top: 50px;
+}
+
+.home .intro .btnsg {
+    margin-left: 600px;
+    outline: 0;
+    border: 0;
+    background-color: red;
+    color: yellow;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 20px;
+}
+
+.home .intro .btnsg:hover {
+    background-color: rgb(182, 0, 0);
+}
+
+@media only screen and (max-width: 768px) {
+  .home {
+    width: 100%;
+    height: 620px;
+  }
+
+  .home .intro .logo {
+    margin-left: 20px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .home .intro .brief {
+    padding: 1.3rem;
+    margin-top: 30px;
+    text-align: center; /* Horizontally center the text */
+    vertical-align: middle; /* Vertically align the text in an inline or inline-block element */
+  }
+
+  .home .intro .btnsg {
+    width: 10rem;
+    margin-left: 160px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .home .intro .btnsg:hover {
+    background-color: rgb(182, 0, 0);
+  }
+}
