@@ -26,7 +26,7 @@ function Politics() {
   return (
     <div>
       <div className="music">
-        <h1 className="title">Music Industry News</h1>
+        <h1 className="title">Politics News</h1>
         <div className="List">
           {data.length > 0 ? ( // Check if data has been fetched
             data.map((item, index) => (
