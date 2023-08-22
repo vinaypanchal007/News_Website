@@ -26,11 +26,11 @@ function Technology() {
   return (
     <div>
       <div className="music">
-        <h1 className="title">Music Industry News</h1>
+        <h1 className="title">Tech News</h1>
         <div className="List">
           {data.length > 0 ? ( // Check if data has been fetched
             data.map((item, index) => (
-              <Link className="Item" key={index} to={`${item.url}`}>
+              <Link className="Item" key={index} to={`${item.url}`} style={{ textDecoration: "none", color: "black" }}>
                 <img
                   src={item.urlToImage}
                   alt="News"
