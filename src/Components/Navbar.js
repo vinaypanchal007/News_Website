@@ -4,7 +4,7 @@ import "../Styles/Navbar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-dark">
+    <nav className="navbar fixed-top navbar-expand-lg bg-dark">
     <div className="container-fluid">
       <Link className="navbar-brand text-white" to='/'>NEWS-HUB</Link>
       <button className="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
