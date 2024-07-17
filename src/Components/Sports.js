@@ -4,8 +4,8 @@ import "../Styles/Sports.css";
 
 function Sports() {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const apiUrl = "https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=a300948ed62e4ad991d03b1e21f58a78";
 
@@ -19,54 +19,52 @@ function Sports() {
       })
       .then((responseData) => {
         setData(responseData.articles);
-        setIsLoading(false); // Set loading to false after data is fetched
+        setIsLoading(false);
       })
       .catch((error) => {
         setError(error.message);
-        setIsLoading(false); // Set loading to false in case of error
+        setIsLoading(false);
       });
   }, []);
 
   return (
-    <div>
-      <div className="sports">
-        <h1 className="title">Sports News</h1>
-        <div className="list">
-          {isLoading && <p>Loading...</p>} {/* Show loading message */}
-          {error && <p>Error: {error}</p>} {/* Show error message */}
-          {!isLoading && !error && data.length > 0 ? (
-            data.map((item, index) => (
-              <Link
-                className="item"
-                key={index}
-                to={{ pathname: item.url }}
-                target="_blank" // Open link in a new tab
-                style={{ textDecoration: "none", color: "black" }}
+    <div className="sports">
+      <h1 className="title">Sports News</h1>
+      <div className="list">
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {!isLoading && !error && data.length > 0 ? (
+          data.map((item, index) => (
+            <Link
+              className="item"
+              key={index}
+              to={{ pathname: item.url }}
+              target="_blank"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <img
+                src={item.urlToImage}
+                alt="News"
+                className="nimg"
+                style={{
+                  width: "280px",
+                  height: "200px",
+                  margin: "10px",
+                  borderRadius: "10px",
+                  boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)",
+                }}
+              />
+              <p
+                className="headline"
+                style={{ textDecoration: "none", fontSize: "15px" }}
               >
-                <img
-                  src={item.urlToImage}
-                  alt="News"
-                  className="nimg"
-                  style={{
-                    width: "280px",
-                    height: "200px",
-                    margin: "10px",
-                    borderRadius: "10px",
-                    boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)",
-                  }}
-                />
-                <p
-                  className="headline"
-                  style={{ textDecoration: "none", fontSize: "15px" }}
-                >
-                  {item.title.slice(0, 65)}...
-                </p>
-              </Link>
-            ))
-          ) : (
-            !isLoading && !error && <p>No news available.</p> // Show if no data available
-          )}
-        </div>
+                {item.title.slice(0, 65)}...
+              </p>
+            </Link>
+          ))
+        ) : (
+          !isLoading && !error && <p>No news available.</p>
+        )}
       </div>
     </div>
   );
