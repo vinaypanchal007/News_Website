@@ -22,7 +22,7 @@ function Navbar() {
             <Link className="nav-link active text-white" to='/Entertainment'>Entertainment</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link active text-white" to='/Music'>Health</Link>
+            <Link className="nav-link active text-white" to='/Music'>Music</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link active text-white" to='/Technology'>Technology</Link>
