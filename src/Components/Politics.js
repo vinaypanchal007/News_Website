@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import "../Styles/Politics.css";
 
 function Politics() {
-  const [data, setData] = useState([]); // Use an array to store the fetched data
-  const apiUrl =
-    "https://newsapi.org/v2/top-headlines?country=in&category=politics&apiKey=a300948ed62e4ad991d03b1e21f58a78";
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const apiUrl = "https://newsapi.org/v2/top-headlines?country=in&category=politics&apiKey=a300948ed62e4ad991d03b1e21f58a78";
 
   useEffect(() => {
     fetch(apiUrl)
@@ -16,24 +18,31 @@ function Politics() {
         return response.json();
       })
       .then((responseData) => {
-        setData(responseData.articles); // Set the fetched data in the state
+        console.log("Fetched data:", responseData);
+        setData(responseData.articles);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Fetch error:", error);
+        setError(error.message);
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <div>
-      <div className="music">
+      <div className="politics">
         <h1 className="title">Politics News</h1>
-        <div className="List">
-          {data.length > 0 ? ( // Check if data has been fetched
+        <div className="list">
+          {isLoading && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {!isLoading && !error && data.length > 0 ? (
             data.map((item, index) => (
               <Link
-                className="Item"
+                className="item"
                 key={index}
-                to={`${item.url}`}
+                to={{ pathname: item.url }}
+                target="_blank"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <img
@@ -48,16 +57,13 @@ function Politics() {
                     boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)",
                   }}
                 />
-                <p
-                  className="headline"
-                  style={{ textDecoration: "none", fontSize: "15px" }}
-                >
-                  {item.title.slice(0, 65)} .....
+                <p className="headline" style={{ textDecoration: "none", fontSize: "15px" }}>
+                  {item.title.slice(0, 65)} ...
                 </p>
               </Link>
             ))
           ) : (
-            <p>Loading...</p>
+            !isLoading && !error && <p>No news available.</p>
           )}
         </div>
       </div>
