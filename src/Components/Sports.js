@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import "../Styles/Sports.css";
 
 function Sports() {
-  const [data, setData] = useState([]); // Use an array to store the fetched data
-  const apiUrl =
-    "https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=a300948ed62e4ad991d03b1e21f58a78";
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+
+  const apiUrl = "https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=a300948ed62e4ad991d03b1e21f58a78";
 
   useEffect(() => {
     fetch(apiUrl)
@@ -16,21 +18,31 @@ function Sports() {
         return response.json();
       })
       .then((responseData) => {
-        setData(responseData.articles); // Set the fetched data in the state
+        setData(responseData.articles);
+        setIsLoading(false); // Set loading to false after data is fetched
       })
       .catch((error) => {
-        console.error("Fetch error:", error);
+        setError(error.message);
+        setIsLoading(false); // Set loading to false in case of error
       });
   }, []);
 
   return (
     <div>
-      <div className="music">
+      <div className="sports">
         <h1 className="title">Sports News</h1>
-        <div className="List">
-          {data.length > 0 ? ( // Check if data has been fetched
+        <div className="list">
+          {isLoading && <p>Loading...</p>} {/* Show loading message */}
+          {error && <p>Error: {error}</p>} {/* Show error message */}
+          {!isLoading && !error && data.length > 0 ? (
             data.map((item, index) => (
-              <Link className="Item" key={index} to={`${item.url}`} style={{ textDecoration: "none", color: "black" }}>
+              <Link
+                className="item"
+                key={index}
+                to={{ pathname: item.url }}
+                target="_blank" // Open link in a new tab
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 <img
                   src={item.urlToImage}
                   alt="News"
@@ -47,12 +59,12 @@ function Sports() {
                   className="headline"
                   style={{ textDecoration: "none", fontSize: "15px" }}
                 >
-                  {item.title.slice(0, 65)}
+                  {item.title.slice(0, 65)}...
                 </p>
               </Link>
             ))
           ) : (
-            <p>Loading...</p>
+            !isLoading && !error && <p>No news available.</p> // Show if no data available
           )}
         </div>
       </div>
